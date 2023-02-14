@@ -4,6 +4,7 @@ import './App.css'
 import {ChakraProvider, extendTheme, useColorMode} from "@chakra-ui/react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainPage from "./pages/MainPage";
+import ChatPage from "./pages/ChatPage";
 
 const config = {
     initialColorMode: 'dark',
@@ -19,7 +20,7 @@ function App() {
           {/*basename={process.env.PUBLIC_URL}*/}
           <BrowserRouter>
               <Routes>
-                  <Route index element={ <MainPage/> }/>
+                  <Route index element={ <ChatPage/> }/>
                   {/*<Route path="/todo" element={<TodoPage/>}/>*/}
 
               </Routes>
