@@ -30,54 +30,11 @@ export function Messages({loading, inputMessage, setInputMessage, messages, send
     const AlwaysScrollToBottom = () => {
         const elementRef = useRef<HTMLUListElement>(null);
         useEffect(() => elementRef.current?.scrollIntoView());
-        return <div ref={elementRef as unknown as React.RefObject<HTMLDivElement>}/>;
+        return <div id="jimmyjohnson" ref={elementRef as unknown as React.RefObject<HTMLDivElement>}/>;
     };
 
 
     return (
-        // <Flex w="100%" h="100%" overflowY="scroll" flexDirection="column" p="3">
-        //     {messages.map((item, index) => {
-        //         if (item.from === "me") {
-        //             return (
-        //                 <Flex key={index} w="100%" justify="flex-end">
-        //                     <Flex
-        //                         bg="black"
-        //                         color="white"
-        //                         minW="100px"
-        //                         maxW="350px"
-        //                         my="1"
-        //                         p="3"
-        //                     >
-        //                         <Text>{item.text}</Text>
-        //                     </Flex>
-        //                 </Flex>
-        //             );
-        //         } else {
-        //             return (
-        //                 <Flex key={index} w="100%">
-        //                     <Avatar
-        //                         name="Computer"
-        //                         src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-        //                         bg="blue.300"
-        //                         style={{marginRight:'5px'}}
-        //                     ></Avatar>
-        //                     <Flex
-        //                         bg="gray.100"
-        //                         color="black"
-        //                         minW="100px"
-        //                         maxW="350px"
-        //                         my="1"
-        //                         p="3"
-        //                     >
-        //                         <Text>{item.text}</Text>
-        //                     </Flex>
-        //                 </Flex>
-        //             );
-        //         }
-        //     })}
-        //     <AlwaysScrollToBottom />
-        // </Flex>
-
         <Box
             h="100vh"
             display="flex"
@@ -102,9 +59,7 @@ export function Messages({loading, inputMessage, setInputMessage, messages, send
                 {/*) : (*/}
                 {/*    <Avatar name={recipientEmail[0]} bg={colorMode === 'light' ? 'teal.600' : 'teal.500'} />*/}
                 {/*)}*/}
-                <Avatar
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-                />
+
                 <Box ml={4} flex={1}>
                     <Heading as="h3" size="lg">
                         kysclient@gmail.com
@@ -117,7 +72,6 @@ export function Messages({loading, inputMessage, setInputMessage, messages, send
                         {/*    'Unavailable'*/}
                         {/*)}*/}
                     </Text>
-
                 </Box>
             </Flex>
             <Box
@@ -125,6 +79,7 @@ export function Messages({loading, inputMessage, setInputMessage, messages, send
                 p={6}
                 pb={0}
                 flex={1}
+                width={"100%"}
                 overflowY="scroll"
                 className="invisible"
                 css={{
@@ -155,8 +110,8 @@ export function Messages({loading, inputMessage, setInputMessage, messages, send
                         wordBreak="break-word"
                         bg={colorMode === 'light' ? 'gray.300' : 'gray.500'}
                     >
-                            <Spinner />
-                        </Text>
+                        <Spinner/>
+                    </Text>
                 }
                 {/*{showMessages()}*/}
                 {/*<Box ref={endOfMessages} id="jimmyjohnson">*/}

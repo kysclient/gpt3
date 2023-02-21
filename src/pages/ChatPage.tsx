@@ -8,12 +8,14 @@ import {ChatType} from "../types";
 import {Sidebar} from "../components/Sidebar";
 import {Configuration, OpenAIApi} from "openai";
 import {text} from "stream/consumers";
+import WarningMessage from "../modules/WarningMessage";
 
 
 export default function ChatPage() {
+    const [warning, setWarning] = useState('')
     const [loading, setLoading] = useState(false)
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -28,9 +30,14 @@ export default function ChatPage() {
     const [inputMessage, setInputMessage] = useState("");
 
     const handleSendMessage = async () => {
+        if(loading) {
+            window.alert('봇의 응답을 기다리는중입니다.')
+            return;
+        }
         if (!inputMessage.trim().length) {
             return;
         }
+
         setLoading(true)
         const data = inputMessage;
 
@@ -50,18 +57,18 @@ export default function ChatPage() {
                 })
             })
         setLoading(false)
-        console.log('response : ', response)
-
     };
 
     return (
-        <Default pageName={"Chat Page"}>
+        // <Default pageName={"Chat Page"}>
             <Flex>
+                {warning && <WarningMessage message={warning} />}
                 <Sidebar />
                 <Box
                     flex="1"
                     overflow="scroll"
-                    // h="100vh"
+                    h="100vh"
+                    w="calc(100vw - 300px)"
                     css={{
                         '&::-webkit-scrollbar': {
                             display: 'none',
@@ -74,6 +81,6 @@ export default function ChatPage() {
                 </Box>
             </Flex>
 
-        </Default>
+        // </Default>
         )
 }
