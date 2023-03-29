@@ -6,7 +6,7 @@ import {Configuration, OpenAIApi} from "openai";
 
 export function Search() {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -17,7 +17,7 @@ export function Search() {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: searchText,
-            temperature: 0,
+            temperature: 0.6,
             max_tokens: 100000,
         });
         console.log('response : ', response)

@@ -12,10 +12,13 @@ import WarningMessage from "../modules/WarningMessage";
 
 
 export default function ChatPage() {
+    const {Translate} = require('@google-cloud/translate').v2;
+    const translate = new Translate();
+
     const [warning, setWarning] = useState('')
     const [loading, setLoading] = useState(false)
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(configuration);
 
@@ -37,27 +40,44 @@ export default function ChatPage() {
         if (!inputMessage.trim().length) {
             return;
         }
+        translateText(inputMessage)
 
         setLoading(true)
         const data = inputMessage;
 
         setMessages((old) => [...old, { from: "ME", text: data }]);
         setInputMessage("");
-
-        const response = await openai.createCompletion({
-            // model: "text-davinci-003",
-            model: "text-curie-001",
-            prompt: data,
-            temperature: 0,
-            max_tokens: 2000,
-        })
-            .then(value => {
-                setMessages((prev) => {
-                    return [...prev, {from:"BOT", text: value.data.choices[0].text as string}]
-                })
+        try {
+            const response = await openai.createCompletion({
+                model: "text-davinci-003",
+                prompt: data,
+                temperature: 0,
+                max_tokens: 2000,
             })
+                .then(value => {
+                    setMessages((prev) => {
+                        return [...prev, {from:"BOT", text: value.data.choices[0].text as string}]
+                    })
+                })
+        }catch (e) {
+            console.log('something wrong... : ', e)
+        }
         setLoading(false)
     };
+
+    async function translateText(text: string) {
+        // Translates the text into the target language. "text" can be a string for
+        // translating a single piece of text, or an array of strings for translating
+        // multiple texts.
+        const target = 'e.g'
+        let [translations] = await translate.translate(text, target);
+        translations = Array.isArray(translations) ? translations : [translations];
+        console.log('Translations:');
+        translations.forEach((translation: string, i: number) => {
+            console.log(`${text[i]} => (${target}) ${translation}`);
+        });
+    }
+
 
     return (
         // <Default pageName={"Chat Page"}>
